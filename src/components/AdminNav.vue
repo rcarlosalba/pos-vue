@@ -11,6 +11,16 @@ import Logo from './Logo.vue';
       <Logo />
     </div>
     <nav>
+      <RouterLink
+        :to="{ name: 'products' }"
+        class="rounded text-white font-bold p-2"
+        >Productos</RouterLink
+      >
+      <RouterLink
+        :to="{ name: 'sales' }"
+        class="rounded text-white font-bold p-2"
+        >Ventas</RouterLink
+      >
       <Link to="shop">Tienda</Link>
     </nav>
   </header>

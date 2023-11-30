@@ -1,7 +1,12 @@
-<script setup></script>
+<script setup>
+import Link from '../../components/Link.vue';
+</script>
 
 <template>
-  <h1>Desde Admin</h1>
+  <div>
+    <Link to="new-product">Nuevo Producto</Link>
+    <h1 class="text-4xl font-black my-10">Productos</h1>
+  </div>
 </template>
 
 <style scope></style>

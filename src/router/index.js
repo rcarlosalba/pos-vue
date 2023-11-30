@@ -13,18 +13,23 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
-      component: () => AdminLayout,
+      component: AdminLayout,
       children: [
         {
           path: 'products',
           name: 'products',
           component: () => import('../views/admin/ProductsView.vue'),
         },
-        /* {
-          path: 'orders',
-          name: 'admin-orders',
-          component: () => import('../views/admin/OrdersView.vue'),
-        }, */
+        {
+          path: 'products/new',
+          name: 'new-product',
+          component: () => import('../views/admin/NewProductView.vue'),
+        },
+        {
+          path: 'ventas',
+          name: 'sales',
+          component: () => import('../views/admin/SalesView.vue'),
+        },
       ],
     },
   ],
