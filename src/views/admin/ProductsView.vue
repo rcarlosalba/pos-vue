@@ -9,6 +9,7 @@ const productsStore = useProductsStore();
   <div>
     <Link to="new-product">Nuevo Producto</Link>
     <h1 class="text-4xl font-black my-10">Productos</h1>
+    <p v-if="productsStore.noResults">No hay resultados</p>
     <ul
       role="list"
       class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-5"
