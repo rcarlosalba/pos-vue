@@ -1,5 +1,35 @@
 <script setup>
+import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
 import Link from '../../components/Link.vue';
+import useImages from '../../composables/useImages';
+import { useProductsStore } from '../../stores/products';
+
+const { url, isImageUploaded, onFileChange } = useImages();
+const productsStore = useProductsStore();
+const router = useRouter();
+
+const formData = reactive({
+  name: '',
+  image: '',
+  category: '',
+  price: '',
+  available: '',
+});
+
+const submitHandler = async (data) => {
+  const { image, ...product } = data;
+
+  try {
+    await productsStore.createProduct({
+      ...product,
+      image: url.value,
+    });
+    router.push({ name: 'products' });
+  } catch (error) {
+    console.log(error);
+  }
+};
 </script>
 
 <template>
@@ -12,6 +42,9 @@ import Link from '../../components/Link.vue';
       <FormKit
         type="form"
         submit-label="Agregar Producto"
+        incomplete-message="Completa todos los campos"
+        @submit="submitHandler"
+        :values="formData"
       >
         <FormKit
           type="text"
@@ -22,6 +55,7 @@ import Link from '../../components/Link.vue';
           :validation-messages="{
             required: 'El nombre del producto es requerido',
           }"
+          v-model.trim="formData.name"
         />
         <FormKit
           type="file"
@@ -32,7 +66,17 @@ import Link from '../../components/Link.vue';
             required: 'La imagen del producto es requerida',
           }"
           accept=".jpg,.png,.jpeg"
+          @change="onFileChange"
+          v-model="formData.image"
         />
+        <div v-if="isImageUploaded">
+          <p class="font-bold">Imagen del Producto:</p>
+          <img
+            :src="url"
+            alt="Imagen del producto"
+            class="w-32"
+          />
+        </div>
         <FormKit
           type="select"
           label="Categoría"
@@ -41,11 +85,8 @@ import Link from '../../components/Link.vue';
           :validation-messages="{
             required: 'La categoría del producto es requerida',
           }"
-          :options="[
-            { label: 'Categoría 1', value: '1' },
-            { label: 'Categoría 2', value: '2' },
-            { label: 'Categoría 3', value: '3' },
-          ]"
+          :options="productsStore.categoryOptions"
+          v-model="formData.category"
         />
         <FormKit
           type="number"
@@ -57,6 +98,7 @@ import Link from '../../components/Link.vue';
             required: 'El precio del producto es requerido',
           }"
           min="1"
+          v-model.number="formData.price"
         />
         <FormKit
           type="number"
@@ -68,6 +110,7 @@ import Link from '../../components/Link.vue';
             required: 'La disponibilidad del producto es requerida',
           }"
           min="1"
+          v-model.number="formData.available"
         />
       </FormKit>
     </div>
