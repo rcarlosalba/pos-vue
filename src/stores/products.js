@@ -1,4 +1,4 @@
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
 import { useFirestore, useCollection, useFirebaseStorage } from 'vuefire';
 import {
@@ -19,6 +19,8 @@ export const useProductsStore = defineStore('products', () => {
   const storage = useFirebaseStorage();
   const q = query(collection(db, 'products'));
   const productsCollection = useCollection(q);
+
+  const selectedCategory = ref(1);
 
   const categories = [
     {
@@ -86,6 +88,12 @@ export const useProductsStore = defineStore('products', () => {
     }
   }
 
+  const filterProducts = computed(() => {
+    return productsCollection.value.filter(
+      (product) => product.category === selectedCategory.value
+    );
+  });
+
   return {
     createProduct,
     updateProduct,
@@ -93,5 +101,8 @@ export const useProductsStore = defineStore('products', () => {
     categoryOptions,
     productsCollection,
     noResults,
+    filterProducts,
+    selectedCategory,
+    categories,
   };
 });

@@ -27,7 +27,7 @@ const formData = reactive({
   name: '',
   category: '',
   price: '',
-  available: '',
+  availability: '',
   image: '',
 });
 
@@ -91,9 +91,9 @@ const submitHandler = async (data) => {
           <FormKit
             type="number"
             label="Disponibles"
-            name="available"
+            name="availability"
             placeholder="Productos Disponibles"
-            v-model.number="formData.available"
+            v-model.number="formData.availability"
             step="1"
             min="0"
           />

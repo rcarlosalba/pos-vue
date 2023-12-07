@@ -20,7 +20,7 @@ defineProps({
     <div class="space-y-2 flex-auto">
       <h3 class="text-gray-900">{{ product.name }}</h3>
       <p class="font-black">{{ formatCurrency(product.price) }}</p>
-      <p>{{ product.aviable }} en Existencia</p>
+      <p>{{ product.availability }} en Existencia</p>
     </div>
     <div class="flex gap-3 items-center">
       <RouterLink
