@@ -1,5 +1,7 @@
 <script setup>
+import { useCartStore } from '../stores/cart';
 import { formatCurrency } from '../helpers/index';
+const cartStore = useCartStore();
 defineProps({
   product: {
     type: Object,
@@ -25,6 +27,7 @@ defineProps({
       <button
         type="button"
         class="absolute top-3 -right-3"
+        @click="cartStore.addItem(product)"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

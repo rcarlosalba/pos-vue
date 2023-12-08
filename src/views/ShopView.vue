@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia';
 import MainNav from '../components/MainNav.vue';
 import ProductCard from '../components/ProductCard.vue';
+import ShoppingCart from '../components/ShoppingCart.vue';
 import { useProductsStore } from '../stores/products';
 const productsStore = useProductsStore();
 const { filterProducts, noResults } = storeToRefs(productsStore);
@@ -29,7 +30,7 @@ const { filterProducts, noResults } = storeToRefs(productsStore);
       </div>
     </div>
     <aside class="lg:w-1/3 lg:h-screen lg:overflow-y-scroll pt-10 pb-32 px-10">
-      <p>Carrito aquí</p>
+      <ShoppingCart />
     </aside>
   </main>
 </template>
